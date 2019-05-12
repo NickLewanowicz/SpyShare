@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import {Auth, Dashboard} from './routes'
 import './App.css';
@@ -8,9 +8,10 @@ import './App.css';
 const App: React.FC = () => {
   return (
     <Router>
-      <Route path="/" exact component={Dashboard} />
-      <Route path="/a" component={Auth} />
-
+      <Switch>
+        <Route path="/" exact component={Dashboard} />
+        <Route path="/" component={Auth} />
+      </Switch>
     </Router>
   );
 }
