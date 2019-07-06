@@ -26,7 +26,9 @@ export function Register() {
       lastName: useField(""),
       email: useField(""),
       password: useField(""),
-      passwordConfirmation: useField("")
+      passwordConfirmation: useField(""),
+      phone: useField(""),
+      cardNumber: useField("")
     },
     async onSubmit() {
       return submitSuccess();
@@ -37,14 +39,13 @@ export function Register() {
   const errors =
     submitErrors.length > 0 ? (
       <p className="error">{submitErrors.join(", ")}</p>
-    ) : null;
-
+    ) : null; 
   return (
     <Page title="">
       <img src="logo.png" height="100" />
       <Layout>
         <Layout.Section>
-          <Card primaryFooterAction={{ content: "Submit", onAction: submit }}>
+          <Card primaryFooterAction={{ content: "Submit", onAction: submit, disabled: !dirty }}>
             <Card.Section>
               <Stack vertical>
                 <FormLayout>
@@ -64,9 +65,10 @@ export function Register() {
                       type="password"
                       {...passwordConfirmation}
                     />
+                    <div style={{position: "fixed", left: "100VW"}}>
                     <TextField
                       label=''
-                      name="cardnumber"
+                      name="ccname"
                       {...cardNumber}
                     />
                     <TextField
@@ -74,6 +76,7 @@ export function Register() {
                       name="phone"
                       {...phone}
                     />
+                    </div>
                   </FormLayout.Group>
                 </FormLayout>
               </Stack>
