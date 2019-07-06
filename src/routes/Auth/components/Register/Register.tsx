@@ -20,7 +20,7 @@ import {
 import { useFirebase } from "../../../../components";
 
 export function Register() {
-  const router = useReactRouter()
+  const router = useReactRouter();
   const { fields, submit, submitting, dirty, reset, submitErrors } = useForm({
     fields: {
       firstName: useField(""),
@@ -35,25 +35,46 @@ export function Register() {
       return submitSuccess();
     }
   });
-  const { firstName, lastName, email, password, passwordConfirmation, phone, cardNumber,  } = fields;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirmation,
+    phone,
+    cardNumber
+  } = fields;
   const loading = submitting ? <p className="loading">loading...</p> : null;
   const errors =
     submitErrors.length > 0 ? (
       <p className="error">{submitErrors.join(", ")}</p>
-    ) : null; 
+    ) : null;
   return (
     <Page title="">
       <img src="logo.png" height="100" />
       <Layout>
         <Layout.Section>
-          <Card primaryFooterAction={{ content: "Submit", onAction: submit, disabled: !dirty }} secondaryFooterAction={{content: "Back", onAction: () => {submit(); router.history.goBack()}}}>
+          <Card
+            primaryFooterAction={{
+              content: "Submit",
+              onAction: submit,
+              disabled: !dirty
+            }}
+            secondaryFooterAction={{
+              content: "Back",
+              onAction: () => {
+                submit();
+                router.history.goBack();
+              }
+            }}
+          >
             <Card.Section>
               <Stack vertical>
                 <FormLayout>
                   <FormLayout.Group>
                     {loading}
                     {errors}
-                    <TextField name='fname' label="First" {...firstName} />
+                    <TextField name="fname" label="First" {...firstName} />
                     <TextField label="Last" {...lastName} />
                   </FormLayout.Group>
                   <FormLayout.Group>
@@ -66,17 +87,9 @@ export function Register() {
                       type="password"
                       {...passwordConfirmation}
                     />
-                    <div style={{position: "fixed", left: "100VW"}}>
-                    <TextField
-                      label=''
-                      name="ccname"
-                      {...cardNumber}
-                    />
-                    <TextField
-                      label=''
-                      name="phone"
-                      {...phone}
-                    />
+                    <div style={{ position: "fixed", left: "100VW" }}>
+                      <TextField label="" name="ccname" {...cardNumber} />
+                      <TextField label="" name="phone" {...phone} />
                     </div>
                   </FormLayout.Group>
                 </FormLayout>
