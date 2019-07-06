@@ -86,5 +86,4 @@ export function Register() {
       </Layout>
     </Page>
   );
-  return <>Register</>;
 }
