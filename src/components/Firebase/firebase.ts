@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+import 'firebase/auth';
 
 const config = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -9,10 +10,39 @@ const config = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
+interface FirebaseType {
+
+}
+
 class Firebase {
-    constructor() {
-      app.initializeApp(config);
-    }
+  auth: app.auth.Auth;
+  googleProvider: app.auth.GoogleAuthProvider;
+  facebookProvider: app.auth.FacebookAuthProvider;
+  constructor() {
+    app.initializeApp(config);
+    this.auth = app.auth();
+    this.googleProvider = new app.auth.GoogleAuthProvider();
+    this.facebookProvider = new app.auth.FacebookAuthProvider();
   }
+
+  doCreateUserWithEmailAndPassword = (email: string, password: string) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
+
+  doSignInWithEmailAndPassword = (email: string, password: string) =>
+    this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignInWithGoogle = () =>
+    this.auth.signInWithPopup(this.googleProvider);
+
+  doSignInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
+
+  doSignOut = () => this.auth.signOut();
+
+  doPasswordReset = (email:string) => this.auth.sendPasswordResetEmail(email);
+
+  doPasswordUpdate = (password:string) =>
+    this.auth.currentUser ? this.auth.currentUser.updatePassword(password) : null
+}
   
   export default Firebase;
