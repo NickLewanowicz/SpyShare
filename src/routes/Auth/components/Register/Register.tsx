@@ -20,6 +20,7 @@ import {
 import { useFirebase } from "../../../../components";
 
 export function Register() {
+  const router = useReactRouter()
   const { fields, submit, submitting, dirty, reset, submitErrors } = useForm({
     fields: {
       firstName: useField(""),
@@ -34,7 +35,7 @@ export function Register() {
       return submitSuccess();
     }
   });
-  const { firstName, lastName, email, password, passwordConfirmation, phone, cardNumber } = fields;
+  const { firstName, lastName, email, password, passwordConfirmation, phone, cardNumber,  } = fields;
   const loading = submitting ? <p className="loading">loading...</p> : null;
   const errors =
     submitErrors.length > 0 ? (
@@ -45,7 +46,7 @@ export function Register() {
       <img src="logo.png" height="100" />
       <Layout>
         <Layout.Section>
-          <Card primaryFooterAction={{ content: "Submit", onAction: submit, disabled: !dirty }}>
+          <Card primaryFooterAction={{ content: "Submit", onAction: submit, disabled: !dirty }} secondaryFooterAction={{content: "Back", onAction: () => {submit(); router.history.goBack()}}}>
             <Card.Section>
               <Stack vertical>
                 <FormLayout>
