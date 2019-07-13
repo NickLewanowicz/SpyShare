@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import {
   useForm,
@@ -17,50 +17,44 @@ import {
   Stack,
   TextField
 } from "@shopify/polaris";
-import { useFirebase } from "../../../../components";
+
+import { useFirebase } from "components";
+
+import {DetailsForm, useDetailFields} from './components'
 
 export function Register() {
   const router = useReactRouter();
   const { fields, submit, submitting, dirty, reset, submitErrors } = useForm({
     fields: {
-      firstName: useField(""),
-      lastName: useField(""),
-      email: useField(""),
-      password: useField(""),
-      passwordConfirmation: useField(""),
-      phone: useField(""),
-      address: useField(""),
-      city: useField(""),
-      state: useField(""),
-      zip: useField(""),
-      country: useField(""),
-      cardNumber: useField("")
+      details: useDetailFields(),
     },
-    async onSubmit() {
+    async onSubmit({details}) {
+      console.log(details)
       return submitSuccess();
     }
   });
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirmation,
-    phone,
-    address,
-    city,
-    state,
-    zip,
-    country,
-    cardNumber
-  } = fields;
+  const {details} = fields;
+  const [step, setStep] = useState(0);
   const loading = submitting ? <p className="loading">loading...</p> : null;
   const errors =
     submitErrors.length > 0 ? (
       <p className="error">{submitErrors.join(", ")}</p>
     ) : null;
 
-  console.log(fields)
+  console.log(details)
+
+  const formContent = ((step) => {
+    switch(step) {
+      case 0:
+        return <DetailsForm {...details} />;
+      case 1:
+        return null;
+      default:
+        return <>Loading</>;
+    }
+  })(step)
+
+
   return (
     <Page title="">
       <img src="logo.png" height="100" />
@@ -81,36 +75,7 @@ export function Register() {
             }}
           >
             <Card.Section>
-              <Stack vertical>
-                <FormLayout>
-                  <FormLayout.Group>
-                    {loading}
-                    {errors}
-                    <TextField name="fname" label="First" {...firstName} />
-                    <TextField label="Last" {...lastName} />
-                  </FormLayout.Group>
-                  <FormLayout.Group>
-                    <TextField label="Email" type="email" {...email} />
-                  </FormLayout.Group>
-                  <FormLayout.Group>
-                    <TextField label="Password" type="password" {...password} />
-                    <TextField
-                      label="Confirm Password"
-                      type="password"
-                      {...passwordConfirmation}
-                    />
-                    <div style={{ position: "fixed", left: "100VW" }}>
-                      <TextField label="" name="ccname" {...cardNumber} />
-                      <TextField label="" name="phone" {...phone} />
-                      <TextField label="" name="ship-address" {...address} />
-                      <TextField label="" name="ship-city" {...city} />
-                      <TextField label="" name="ship-state" {...state} />
-                      <TextField label="" name="ship-zip" {...zip} />
-                      <TextField label="" name="ship-country" {...country} />
-                    </div>
-                  </FormLayout.Group>
-                </FormLayout>
-              </Stack>
+              {formContent}
             </Card.Section>
           </Card>
         </Layout.Section>
