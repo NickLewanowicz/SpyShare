@@ -13,6 +13,7 @@ const App: React.FC = () => {
   return (
     <AppProvider>
     <FirebaseProvider>
+    <img style={{marginLeft: '1rem'}} src="logo.png" height="100" />
       <Router>
         <Switch>
           <Route path="/" exact component={Dashboard} />
