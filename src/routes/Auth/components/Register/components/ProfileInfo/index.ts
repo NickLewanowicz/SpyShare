@@ -1,0 +1,1 @@
+export {ProfileInfo, useDetailFields} from './ProfileInfo'
