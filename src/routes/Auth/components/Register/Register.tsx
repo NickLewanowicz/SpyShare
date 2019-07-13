@@ -18,8 +18,6 @@ import {
   TextField
 } from "@shopify/polaris";
 
-import { useFirebase } from "components";
-
 import {DetailsForm, useDetailFields} from './components'
 
 export function Register() {
