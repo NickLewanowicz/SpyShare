@@ -1,3 +1,3 @@
-import { Firebase, FirebaseContext, FirebaseProvider, useFirebase } from './Firebase';
+export { Firebase, FirebaseContext, FirebaseProvider, useFirebase } from './Firebase';
+export {useLocalStorage} from './LocalStorage';
 
-export {Firebase, FirebaseContext, FirebaseProvider, useFirebase}
