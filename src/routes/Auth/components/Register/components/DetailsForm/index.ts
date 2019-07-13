@@ -1,1 +1,1 @@
-export {DetailsForm} from './DetailsForm'
+export {DetailsForm, useDetailFields} from './DetailsForm'
