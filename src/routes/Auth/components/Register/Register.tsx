@@ -29,6 +29,11 @@ export function Register() {
       password: useField(""),
       passwordConfirmation: useField(""),
       phone: useField(""),
+      address: useField(""),
+      city: useField(""),
+      state: useField(""),
+      zip: useField(""),
+      country: useField(""),
       cardNumber: useField("")
     },
     async onSubmit() {
@@ -42,6 +47,11 @@ export function Register() {
     password,
     passwordConfirmation,
     phone,
+    address,
+    city,
+    state,
+    zip,
+    country,
     cardNumber
   } = fields;
   const loading = submitting ? <p className="loading">loading...</p> : null;
@@ -49,6 +59,8 @@ export function Register() {
     submitErrors.length > 0 ? (
       <p className="error">{submitErrors.join(", ")}</p>
     ) : null;
+
+  console.log(fields)
   return (
     <Page title="">
       <img src="logo.png" height="100" />
@@ -90,6 +102,11 @@ export function Register() {
                     <div style={{ position: "fixed", left: "100VW" }}>
                       <TextField label="" name="ccname" {...cardNumber} />
                       <TextField label="" name="phone" {...phone} />
+                      <TextField label="" name="ship-address" {...address} />
+                      <TextField label="" name="ship-city" {...city} />
+                      <TextField label="" name="ship-state" {...state} />
+                      <TextField label="" name="ship-zip" {...zip} />
+                      <TextField label="" name="ship-country" {...country} />
                     </div>
                   </FormLayout.Group>
                 </FormLayout>
