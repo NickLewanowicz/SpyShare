@@ -3,21 +3,26 @@ import React from "react";
 import useReactRouter from "use-react-router";
 
 import { Button, Card, Page, Layout, TopBar } from "@shopify/polaris";
-import { useFirebase } from "../../../../components";
+
+import { useFirebase, useLocalStorage} from "components";
 
 export function Login() {
   const firebase = useFirebase();
+  const [currentUserObj, setCurrentUser] = useLocalStorage('currentUser', {})
+
   const { history } = useReactRouter();
   if (!firebase) {
     return <>Error</>;
   }
   const doSignIn = async () => {
     await firebase.doSignInWithGoogle();
-    if (firebase.auth.currentUser) {
+    const {currentUser} = firebase.auth;
+    if (currentUser) {
+      const {displayName, email, phoneNumber, photoURL, providerData} = currentUser;
+      setCurrentUser({displayName, email, phoneNumber, photoURL, providerData})
+      console.log(currentUser)
       history.push("/register");
     }
-    firebase.auth.currentUser &&
-      console.log(firebase.auth.currentUser.photoURL);
   };
 
   const doSignout = async () => {
