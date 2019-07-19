@@ -1,4 +1,4 @@
-## SpyShare
+# SpyShare
 
 The modern web is a shiny and alluring place but we can often forget the power they have and how opaque they can be.
 
