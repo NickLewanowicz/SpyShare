@@ -6,6 +6,7 @@ import {
   submitSuccess
 } from "@shopify/react-form";
 import useReactRouter from "use-react-router";
+import { VideoRecorder } from "components";
 
 import {
   Button,
@@ -14,9 +15,9 @@ import {
   Layout,
   Page,
   Stack,
-  TextField
+  TextField,
+  TextStyle
 } from "@shopify/polaris";
-import { type } from "os";
 
 export interface FieldValues {
   firstName: string;
@@ -56,13 +57,21 @@ export function DetailsForm({
   return (
     <Stack vertical>
       <FormLayout>
+        <TextStyle variation="subdued">
+          🔒 This information is private by default.
+        </TextStyle>
+        <VideoRecorder
+          onRecordingComplete={(
+            videoBlob: any,
+            startedAt: any,
+            thumbnailBlob: any,
+            duration: any
+          ) => {
+            console.log(videoBlob, startedAt, thumbnailBlob, duration);
+          }}
+        />
         <FormLayout.Group>
-          <TextField
-            label="First Name"
-            helpText="🔒 This information is private by default."
-            name="fname"
-            {...firstName}
-          />
+          <TextField label="First Name" name="fname" {...firstName} />
           <TextField label="Last Name" name="lname" {...lastName} />
         </FormLayout.Group>
         <FormLayout.Group>
