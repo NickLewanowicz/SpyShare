@@ -6,6 +6,7 @@ import {
   submitSuccess
 } from "@shopify/react-form";
 import useReactRouter from "use-react-router";
+import { LocationButton } from "../LocationButton";
 
 import {
   Button,
@@ -19,105 +20,39 @@ import {
 import { type } from "os";
 
 export interface FieldValues {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  country: string;
-  cardNumber: string;
-  ccname: string;
+  username: string;
+  photo: string;
 }
 
-export type Fields = ReturnType<typeof useDetailFields>;
+export type Fields = ReturnType<typeof useProfileFields>;
 
-export function ProfileInfo({
-  firstName,
-  middleName,
-  lastName,
-  email,
-  password,
-  passwordConfirmation,
-  phone,
-  address,
-  city,
-  state,
-  zip,
-  country,
-  ccname,
-  cardNumber
-}: Fields) {
+export function ProfileInfo({ username, photo }: Fields) {
   return (
     <Stack vertical>
       <FormLayout>
         <FormLayout.Group>
-          <TextField label="First Name" helpText="🔒 This information is private by default." name="fname" {...firstName} />
-          <TextField label="Last Name" name="lname" {...lastName} />
+          <TextField
+            label="Username"
+            helpText="🔒 This information is private by default."
+            name="fname"
+            {...username}
+          />
         </FormLayout.Group>
         <FormLayout.Group>
-          <TextField label="Password" type="password" {...password} />
-          <TextField
-            label="Confirm Password"
-            type="password"
-            {...passwordConfirmation}
-          />
-                  </FormLayout.Group>
+        <LocationButton onSuccess={(position)=>console.log(`Success`,position)} onError={(error)=>console.log(`Error ${error}`)} />
 
-                  <FormLayout.Group>
-          <div style={{ position: "fixed", left: "100VW" }}>
-            <TextField label="" name="email" {...email} />
-            <TextField label="" name="mname" {...middleName} />
-            <TextField label="" name="ccname" {...ccname} />
-            <TextField label="" name="cc-exp" {...cardNumber} />
-            <TextField label="" name="phone" {...phone} />
-            <TextField label="" name="ship-address" {...address} />
-            <TextField label="" name="ship-city" {...city} />
-            <TextField label="" name="ship-state" {...state} />
-            <TextField label="" name="ship-zip" {...zip} />
-            <TextField label="" name="ship-country" {...country} />
-          </div>
-          </FormLayout.Group>
+        </FormLayout.Group>
       </FormLayout>
     </Stack>
   );
 }
 
-export function useDetailFields({
-  firstName = "",
-  middleName = "",
-  lastName = "",
-  email = "",
-  password = "",
-  passwordConfirmation = "",
-  phone = "",
-  address = "",
-  city = "",
-  state = "",
-  zip = "",
-  country = "",
-  ccname = "",
-  cardNumber = ""
+export function useProfileFields({
+  username = "",
+  photo = ""
 }: Partial<FieldValues> = {}) {
   return {
-    firstName: useField(firstName),
-    middleName: useField(middleName),
-    lastName: useField(lastName),
-    email: useField(email),
-    password: useField(password),
-    passwordConfirmation: useField(passwordConfirmation),
-    phone: useField(phone),
-    address: useField(address),
-    city: useField(city),
-    state: useField(state),
-    zip: useField(zip),
-    country: useField(country),
-    cardNumber: useField(cardNumber),
-    ccname: useField(ccname),
-};
+    username: useField(username),
+    photo: useField(photo)
+  };
 }

@@ -1,2 +1,2 @@
 export {DetailsForm, useDetailFields} from './DetailsForm'
-export {ProfileInfo} from './ProfileInfo'
+export {ProfileInfo, useProfileFields} from './ProfileInfo'
