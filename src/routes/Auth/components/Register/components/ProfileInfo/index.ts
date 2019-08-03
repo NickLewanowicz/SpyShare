@@ -1,1 +1,1 @@
-export {ProfileInfo, useDetailFields} from './ProfileInfo'
+export {ProfileInfo, useProfileFields} from './ProfileInfo'
