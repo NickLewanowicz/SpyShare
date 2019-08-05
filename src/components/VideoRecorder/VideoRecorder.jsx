@@ -598,7 +598,6 @@ export default class VideoRecorder extends Component {
       this.turnOnCamera()
     }
     if(this.props.triggerCamera && !isConnecting && isCameraOn && streamIsReady && !isRecording) {
-      console.log('asdasdassad')
       this.props.toggleCameraEnabled()
       setTimeout(this.handleStartRecording, 1000)
     }

@@ -93,7 +93,7 @@ export function Register() {
           </>
         );
       default:
-        return <>Loading</>;
+        return <>Error please refresh</>;
     }
   })(step);
 
