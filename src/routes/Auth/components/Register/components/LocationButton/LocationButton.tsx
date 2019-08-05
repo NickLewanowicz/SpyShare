@@ -18,9 +18,10 @@ export function LocationButton({
 }: Props) {
   const [fetchingPosition, setFetchingPosition] = useState(false);
   const [locationPermission, setLocationPermission] = useState(false);
+  const [calledSuccess, setCalledSuccess] = useState(false);
   const [blockSubmit, setBlockSumbit] = useState(false);
 
-  hasLocationPermission();
+  !calledSuccess && hasLocationPermission();
   if (typeof window !== "object") {
     return null;
   }
@@ -61,6 +62,7 @@ export function LocationButton({
       position => {
         setFetchingPosition(false);
         onSuccess(position);
+        setCalledSuccess(true)
       },
       error => {
         setFetchingPosition(false);
@@ -77,8 +79,10 @@ export function LocationButton({
     });
     if (perm.state === "granted") {
       setLocationPermission(true);
+      getCurrentPosition()
     } else if (perm.state === "denied") {
       setBlockSumbit(true);
+      onError({} as PositionError);
     }
   }
 }

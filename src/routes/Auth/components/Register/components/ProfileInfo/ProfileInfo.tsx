@@ -21,26 +21,31 @@ import { type } from "os";
 
 export interface FieldValues {
   username: string;
-  photo: string;
+  location: Position | boolean;
 }
 
 export type Fields = ReturnType<typeof useProfileFields>;
 
-export function ProfileInfo({ username, photo }: Fields) {
+export function ProfileInfo({ username, location }: Fields) {
   return (
     <Stack vertical>
       <FormLayout>
         <FormLayout.Group>
           <TextField
             label="Username"
-            helpText="🔒 This information is private by default."
+            helpText="🔒 Private by default."
             name="fname"
             {...username}
           />
         </FormLayout.Group>
         <FormLayout.Group>
-        <LocationButton onSuccess={(position)=>console.log(`Success`,position)} onError={(error)=>console.log(`Error ${error}`)} />
-
+          <LocationButton
+            onSuccess={position => location.onChange(position)}
+            onError={error => {
+              location.onChange(true);
+              console.log(`Error ${error}`);
+            }}
+          />
         </FormLayout.Group>
       </FormLayout>
     </Stack>
@@ -49,10 +54,10 @@ export function ProfileInfo({ username, photo }: Fields) {
 
 export function useProfileFields({
   username = "",
-  photo = ""
+  location = false
 }: Partial<FieldValues> = {}) {
   return {
     username: useField(username),
-    photo: useField(photo)
+    location: useField(location)
   };
 }

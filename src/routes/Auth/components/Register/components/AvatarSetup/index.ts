@@ -1,0 +1,1 @@
+export {AvatarSetup, useAvatarFields} from './AvatarSetup'

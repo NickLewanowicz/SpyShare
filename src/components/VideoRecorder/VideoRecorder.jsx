@@ -97,7 +97,7 @@ export default class VideoRecorder extends Component {
     renderDisconnectedView: () => <DisconnectedView />,
     renderLoadingView: () => <LoadingView />,
     renderActions,
-    countdownTime: 3000
+    countdownTime: 1000
   }
 
   videoInput = React.createRef()
@@ -324,7 +324,6 @@ export default class VideoRecorder extends Component {
       isRunningCountdown: true,
       isReplayingVideo: false
     })
-
     setTimeout(() => this.startRecording(), this.props.countdownTime)
   }
 
@@ -595,7 +594,14 @@ export default class VideoRecorder extends Component {
       renderActions,
       useVideoInput
     } = this.props
-
+    if(this.props.triggerCamera && !isConnecting && !isCameraOn){
+      this.turnOnCamera()
+    }
+    if(this.props.triggerCamera && !isConnecting && isCameraOn && streamIsReady && !isRecording) {
+      console.log('asdasdassad')
+      this.props.toggleCameraEnabled()
+      setTimeout(this.handleStartRecording, 1000)
+    }
     return (
       <Wrapper>
         {this.renderCameraView()}

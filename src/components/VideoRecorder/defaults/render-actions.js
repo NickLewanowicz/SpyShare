@@ -62,7 +62,8 @@ const Actions = ({
     }
 
     if (isRecording) {
-      return <StopButton onClick={onStopRecording} data-qa='stop-recording' />
+      return null; 
+      //<StopButton onClick={onStopRecording} data-qa='stop-recording' />
     }
 
     if (isCameraOn && streamIsReady) {
